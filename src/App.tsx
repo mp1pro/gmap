@@ -1,25 +1,61 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+
+const divStyle = {
+  background: `white`,
+  border: `1px solid #ccc`,
+  padding: 15
+}
+
+const mapContainerStyle = {
+  height: "400px",
+  width: "800px"
+}
+
+const center = {
+  lat: 41.8781,
+  lng: -87.6298
+}
+
+const position = {
+  lat: 42.3314,
+  lng: -83.0458
+}
+
+const onLoad = marker => {
+  console.log('marker: ', marker)
+}
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <LoadScript
+
+      googleMapsApiKey="AIzaSyATfEsiaXANDiCDpRBtADkL0IRMS2d29K4"
+    >
+      <GoogleMap
+          id="marker-example"
+          mapContainerStyle={mapContainerStyle}
+          zoom={5}
+          center={center}
+      >
+        <Marker
+            onLoad={onLoad}
+            position={position}
+        />
+
+        <InfoWindow
+
+            position={position}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <div style={divStyle}>
+            <h1>InfoWindow</h1>
+          </div>
+        </InfoWindow>
+
+      </GoogleMap>
+    </LoadScript>
   );
 }
 
